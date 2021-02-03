@@ -3,8 +3,8 @@ module.exports = {
   devServer: {
     port: "9090",
     proxy: {
-      "/graphql": { target: "http://localhost:8080/api" },
-      "/apps": { target: "http://localhost:8080" }
+      "/graphql": { target: "http://localhost:9000/api" },
+      "/apps": { target: "http://localhost:9000" }
     }
   }
 };
