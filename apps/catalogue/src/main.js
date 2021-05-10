@@ -1,5 +1,21 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from "vue"
+import VueRouter from "vue-router"
+import { BootstrapVue } from 'bootstrap-vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {
+  faCaretRight,
+  faExclamationTriangle,
+  faSpinner,
+  faTimes,
+  faFolderOpen,
+  faFolder,
+  faSearch,
+  faCheckCircle,
+  faQuestion
+} from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import draggable from 'vuedraggable'
+import hljs from 'highlight.js'
 import App from "./App.vue";
 import CatalogueView from "./views/CatalogueView";
 import InstitutionView from "./views/InstitutionView";
@@ -17,14 +33,24 @@ import VariableView from "./views/VariableView";
 import VariableMappingsView from "./views/VariableMappingsView";
 import TableMappingsView from "./views/TableMappingsView";
 import store from './store/store'
-import LifeCycleView from "./views/LifeCycleView"
-import LifeCycleVariablesView from "./views/LifeCycleVariablesView"
-import LifeCycleHarmonizationView from "./views/LifeCycleHarmonizationView"
+import BrowseVariablesView from "./views/lifecycle/BrowseVariablesView"
+import VariablesView from "./views/lifecycle/VariablesView"
+import MappingView from "./views/lifecycle/MappingView"
+import MappingDetailView from "./views/lifecycle/MappingDetailView"
+import TreeFilter from "./components/lifecycle/TreeFilter"
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 Vue.config.productionTip = false;
 
-Vue.use(VueRouter);
+Vue.use(BootstrapVue)
+Vue.use(hljs.vuePlugin)
+Vue.component('draggable', draggable)
+Vue.component('TreeFilter', TreeFilter)
+Vue.component('FontAwesomeIcon', FontAwesomeIcon)
+library.add(faCaretRight, faExclamationTriangle, faSpinner, faTimes, faFolderOpen, faFolder, faSearch, faCheckCircle, faQuestion)
+
+Vue.use(VueRouter)
 
 const router = new VueRouter({
   linkActiveClass: 'active', // bootstrap 4 active tab class
@@ -32,19 +58,29 @@ const router = new VueRouter({
     { name: "Catalogue", path: "/", component: CatalogueView },
     { name: "Cohorts", path: "/alt", component: NetworkView },
     { 
-      path: "/lifecycle", component: LifeCycleView,
+      path: "/lifecycle", 
+      component: BrowseVariablesView,
       children: [
         {
-          name: "LifeCycleVariablesView",
+          name: "VariablesView",
           path: 'variables',
-          component: LifeCycleVariablesView
+          component: VariablesView
         },
         {
-          name: "LifeCycleHarmonizationView",
-          path: 'harmonization',
-          component: LifeCycleHarmonizationView
+          name: "MappingView",
+          path: 'mapping',
+          component: MappingView
         },
-        { path: '', redirect: '/lifecycle/variables' },
+        {
+          name: "MappingDetailView",
+          path: 'mapping/detail',
+          component: MappingDetailView,
+          props: true
+        },
+        { 
+          path: '', 
+          redirect: '/lifecycle/variables' 
+        },
       ]
      },
     //list views
