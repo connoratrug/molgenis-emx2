@@ -3,7 +3,7 @@
       v-if="keywords && keywords.length && networks && networks.length && databanks && databanks.length"
       :value="selection"
       :filters="filters"
-      :filters-shown="['networks', 'keywords', 'databanks']"
+      :filters-shown="['keywords', 'networks', 'databanks']"
       @input="setFilters"
   />
 </template>
@@ -21,22 +21,23 @@ export default {
     ...mapState({ selection: 'filters', keywords: 'keywords', networks: 'networks', databanks: 'databanks' }),
     filters () {
       return [
-        {
-          name: 'networks',
-          label: 'Networks',
-          collapsed: false,
-          options: this.networkOptions,
-          initialDisplayItems: 2,
-          type: 'checkbox-filter',
-          bulkOperation: true
-        },
-        {
+         {
           name: 'keywords',
           label: 'Keywords',
           collapsed: false,
           type: 'tree-filter',
           options: this.keywordOptions
         },
+        {
+          name: 'networks',
+          label: 'Networks',
+          collapsed: true,
+          options: this.networkOptions,
+          initialDisplayItems: 2,
+          type: 'checkbox-filter',
+          bulkOperation: true
+        },
+
         {
           name: 'databanks',
           label: 'Databanks',

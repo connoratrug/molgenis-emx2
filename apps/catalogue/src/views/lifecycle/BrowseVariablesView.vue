@@ -1,18 +1,21 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-3">
-        <h1>Variables</h1>
+      <div class="col-12">
+        <h1>Cohort catalogue</h1>
       </div>
-      <div class="col-9"></div>
     </div>
     <div class="row">
       <div class="col-3">
+        <h5>Filters</h5>
         <variable-filters-view />
       </div>
       <div class="col-9">
         <div class="row">
-          <div class="col-12">
+          <div class="col-6">
+            <h3>Variables <span v-show="variableCount">({{ variableCount }})</span></h3>
+          </div>
+          <div class="col-6">
             <search-box v-model="variableSearch" placeholder="Search variables..." />
           </div>
         </div>
@@ -27,13 +30,8 @@
           <div class="col-12">
             <ul class="nav nav-tabs">
               <li class="nav-item">
-                <span
-                  class="badge badge-pill badge-primary"
-                  style="float: right; margin-bottom: -5px"
-                  >{{ variableCount }}</span
-                >
                 <router-link class="nav-link" :to="{ name: 'VariablesView' }">
-                  Variables
+                  Details
                 </router-link>
               </li>
               <li class="nav-item">
@@ -41,15 +39,7 @@
                   class="nav-link"
                   :to="{ name: 'MappingView', url: 'mapping' }"
                 >
-                  Mapping
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link
-                  class="nav-link"
-                  :to="{ name: 'MappingDetailView', url: 'mapping/detail' }"
-                >
-                  Detail
+                  Harmonizarion
                 </router-link>
               </li>
             </ul>
@@ -70,7 +60,7 @@ import VariableSelectedFiltersView from "@/views/lifecycle/VariableSelectedFilte
 import SearchBox from "@/components/lifecycle/SearchBox.vue";
 
 export default {
-  name: "VariablesView",
+  name: "BrowseVariablesView",
   components: {
     VariableSelectedFiltersView,
     VariableListItem,
