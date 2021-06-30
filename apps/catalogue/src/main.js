@@ -1,5 +1,8 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createApp, configureCompat } from "vue";
+import {
+  createRouter as _createRouter,
+  createWebHashHistory,
+} from "vue-router";
 import App from "./App.vue";
 import store from "./store/store";
 import CatalogueView from "./views/CatalogueView";
@@ -26,11 +29,12 @@ import ResourceHarmonizationDetails from "./views/ResourceHarmonizationDetails";
 import FromVariableDetails from "./views/FromVariableDetails";
 import CohortView from "./views/CohortView";
 
-Vue.config.productionTip = false;
+configureCompat({
+  MODE: 3,
+})
 
-Vue.use(VueRouter);
-
-const router = new VueRouter({
+const router = _createRouter({
+  history: createWebHashHistory(),
   linkActiveClass: "active", // bootstrap 4 active tab class
   routes: [
     { name: "Catalogue", path: "/", component: CatalogueView },
@@ -175,8 +179,13 @@ const router = new VueRouter({
   ],
 });
 
-new Vue({
-  router,
-  render: (h) => h(App),
-  store,
-}).$mount("#app");
+// new Vue({
+//   router,
+//   render: (h) => h(App),
+//   store,
+// }).$mount("#app");
+
+const app = createApp(App);
+app.use(store);
+app.use(router);
+app.mount("#app");

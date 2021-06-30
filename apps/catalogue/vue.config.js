@@ -4,6 +4,21 @@ const SCHEMA = process.env.MOLGENIS_APPS_SCHEMA || "Conception";
 module.exports = {
   publicPath: "", // to ensure relative paths are used
   chainWebpack: (config) => {
+    // Run vue 3 in vue 2 mode
+    config.resolve.alias.set("vue", "@vue/compat");
+    config.module
+      .rule("vue")
+      .use("vue-loader")
+      .tap((options) => {
+        return {
+          ...options,
+          compilerOptions: {
+            compatConfig: {
+              MODE: 3,
+            },
+          },
+        };
+      });
     // GraphQL Loader, allows import of .gql files
     config.module
       .rule("graphql")

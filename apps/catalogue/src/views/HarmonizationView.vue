@@ -18,13 +18,10 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="variable in variablePage">
-            <harmonization-row
-              :key="variable.name"
-              :variable="variable"
-              :resources="resources"
-            />
-          </template>
+          // eslint-disable-next-line vue/no-v-for-template-key
+          <tr v-for="variable in variablePage" :key="variable.name">
+            <harmonization-row :variable="variable" :resources="resources" />
+          </tr>
         </tbody>
       </table>
       <p v-if="pageSize < variables.length">

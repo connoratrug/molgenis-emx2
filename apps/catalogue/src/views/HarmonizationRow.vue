@@ -1,5 +1,5 @@
 <template>
-  <tr>
+
     <th class="table-label text-nowrap" scope="row">
       {{ variable.name }}
     </th>
@@ -9,7 +9,7 @@
       class="colored-grid-cell"
       :class="'table-' + getCellClass(cohort)"
     ></td>
-  </tr>
+
 </template>
 
 <script>
